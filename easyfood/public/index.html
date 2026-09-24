@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EasyFood | Restaurantes</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/">easy<span>Food</span></a>
+      <nav class="menu">
+        <a href="#restaurantes">Restaurantes</a>
+        <a id="login-link" href="/login.html">Entrar</a>
+      </nav>
+    </header>
+
+    <main class="container">
+      <section class="intro">
+        <p class="eyebrow">ENCONTRE UM LUGAR NOVO</p>
+        <h1>Comida boa deixa o dia mais leve.</h1>
+        <p>
+          Veja os restaurantes cadastrados na EasyFood e adicione o seu depois de entrar na conta.
+        </p>
+      </section>
+
+      <section class="register-area">
+        <div>
+          <p class="eyebrow">CADASTRAR RESTAURANTE</p>
+          <h2>Seu restaurante também pode aparecer aqui.</h2>
+        </div>
+
+        <form id="restaurant-form" class="restaurant-form">
+          <label>
+            Nome do restaurante
+            <input name="name" type="text" placeholder="Ex.: Quintal do Sabor" required />
+          </label>
+          <label>
+            Categoria
+            <input name="category" type="text" placeholder="Ex.: Brasileira" required />
+          </label>
+          <label>
+            Nota
+            <input name="rating" type="number" min="0" max="5" step="0.1" placeholder="Ex.: 4.5" />
+          </label>
+          <button type="submit">Cadastrar restaurante</button>
+        </form>
+        <p id="form-message" class="message" aria-live="polite"></p>
+      </section>
+
+      <section id="restaurantes" class="restaurants-section">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">LISTA ATUAL</p>
+            <h2>Restaurantes para conhecer</h2>
+          </div>
+          <span id="restaurant-count" class="count"></span>
+        </div>
+        <div id="restaurant-list" class="restaurant-list">
+          <p class="loading">Carregando restaurantes...</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>EasyFood - Projeto da disciplina de Arquitetura de Software</footer>
+    <script type="module" src="/js/restaurants.js"></script>
+  </body>
+</html>

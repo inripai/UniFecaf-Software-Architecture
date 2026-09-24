@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EasyFood | Acesso</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body class="access-page">
+    <header class="topbar">
+      <a class="brand" href="/">easy<span>Food</span></a>
+      <nav class="menu"><a href="/">Voltar para restaurantes</a></nav>
+    </header>
+
+    <main class="access-content">
+      <section class="access-text">
+        <p class="eyebrow">ÁREA DE ACESSO</p>
+        <h1>Entre para cadastrar o seu restaurante.</h1>
+        <p>
+          Crie uma conta simples. A senha é protegida antes de ser salva no banco.
+        </p>
+      </section>
+
+      <section class="access-card">
+        <div class="tabs">
+          <button class="tab active" data-form="login">Entrar</button>
+          <button class="tab" data-form="register">Criar conta</button>
+        </div>
+
+        <form id="login-form" class="access-form">
+          <h2>Que bom te ver.</h2>
+          <label>E-mail <input name="email" type="email" required /></label>
+          <label>Senha <input name="password" type="password" required /></label>
+          <button type="submit">Entrar</button>
+        </form>
+
+        <form id="register-form" class="access-form hidden">
+          <h2>Crie sua conta.</h2>
+          <label>Nome <input name="name" type="text" required /></label>
+          <label>E-mail <input name="email" type="email" required /></label>
+          <label>Senha <input name="password" type="password" minlength="6" required /></label>
+          <button type="submit">Cadastrar</button>
+        </form>
+        <p id="access-message" class="message" aria-live="polite"></p>
+      </section>
+    </main>
+    <script type="module" src="/js/auth.js"></script>
+  </body>
+</html>
