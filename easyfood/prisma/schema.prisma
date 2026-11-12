@@ -11,11 +11,39 @@ model Restaurant {
   name     String   @db.VarChar(150)
   category String?  @db.VarChar(100)
   rating   Decimal? @db.Decimal(2, 1)
+  // Nullable somente para preservar registros criados antes da regra de dono.
+  ownerId  Int?
+  owner    User?    @relation(fields: [ownerId], references: [id])
+  dishes   Dish[]
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  name     String @db.VarChar(150)
-  email    String @unique @db.VarChar(150)
-  password String @db.VarChar(255)
+  id           Int          @id @default(autoincrement())
+  name         String       @db.VarChar(150)
+  email        String       @unique @db.VarChar(150)
+  password     String       @db.VarChar(255)
+  profileImage String?      @db.Text
+  restaurants  Restaurant[]
+}
+
+model Dish {
+  id           Int        @id @default(autoincrement())
+  name         String     @db.VarChar(150)
+  category     String     @db.VarChar(100)
+  price        Decimal    @db.Decimal(10, 2)
+  description  String     @db.Text
+  imageUrl     String?    @db.Text
+  restaurantId Int
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+
+  @@index([restaurantId])
+}
+
+model Activity {
+  id        Int      @id @default(autoincrement())
+  action    String   @db.VarChar(100)
+  details   String?  @db.Text
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
 }

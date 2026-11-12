@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const prisma = require("../../database/prisma");
+const imageService = require("../shared/image.service");
 
 async function register(data) {
   const passwordHash = await bcrypt.hash(data.password, 10);
@@ -51,7 +52,50 @@ async function login(data) {
   };
 }
 
+async function getById(id) {
+  const user = await prisma.user.findUnique({ where: { id } });
+
+  if (!user) {
+    return null;
+  }
+
+  return { id: user.id, name: user.name, email: user.email, profileImage: user.profileImage };
+}
+
+async function updateProfileImage(id, file) {
+  const currentUser = await getById(id);
+
+  if (!currentUser) {
+    const error = new Error("Usuário não encontrado");
+    error.statusCode = 404;
+    throw error;
+  }
+
+  const imageUrl = await imageService.processProfileImage(file);
+  let user;
+
+  try {
+    user = await prisma.user.update({
+      where: { id },
+      data: { profileImage: imageUrl }
+    });
+  } catch (error) {
+    await imageService.removeStoredImage(imageUrl);
+    throw error;
+  }
+
+  try {
+    await imageService.removeStoredImage(currentUser.profileImage);
+  } catch (error) {
+    console.error("Não foi possível remover a imagem de perfil anterior:", error.message);
+  }
+
+  return { id: user.id, name: user.name, email: user.email, profileImage: user.profileImage };
+}
+
 module.exports = {
   register,
-  login
+  login,
+  getById,
+  updateProfileImage
 };
